@@ -1,7 +1,27 @@
+var grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],        
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
+           [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],];
+var tileSize = 25;
 
-var mapHeight = 500;
-var mapWidth = 500;
-
+var mapHeight = grid[0].length * tileSize;
+var mapWidth = grid.length * tileSize;
 
 var Rover = function(x,y,direction){  // Does this need to have the parameter in the form of an array? If so, it would be the same, except the one parameter would be arr, and the parameter would be x = arr[0], y = arr[1], and direction = arr[2].
 
@@ -9,7 +29,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		x: 10,
 		x: 10,
 		direction: 'N',
-	}
+		};
 
 	if(x){          // This tests if there are any parameters in the function, and if so, uses them to create the rover object.
 		self.x = x;
@@ -17,7 +37,15 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		self.direction = direction;
 	}
 
+	self.isCollision = function(){
+		var gridX = Math.floor(self.x/tileSize);
+		var gridY = Math.floor(self.y/tileSize);
+		return self.collGrid[gridY][gridX];  // returns truthy or falsy if the player is in the tile of the grid that a 1 is in.
+	};
+
 	self.forward = function(){
+		var oldX = self.x;
+		var oldY = self.y;
        if (self.direction === 'N'){
 	      self.x++;
 		}
@@ -44,9 +72,19 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		if (self.y < 0){
 			self.y = mapHeight;
 		}
-	}
+
+	// grid collision detection
+		if (self.isCollision()){
+			self.x = oldX;
+			self.y = oldY;
+			console.log("Obstacle ahead")
+		}
+	};
 
 	self.backward = function(){
+		var oldX = self.x;
+		var oldY = self.y;
+
        if (self.direction === 'N'){
 	      self.x--;
 		}
@@ -74,7 +112,14 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 			self.y = mapHeight;
 		}
 
-	}
+	// grid collision detection
+		if (self.isCollision()){
+			self.x = oldX;
+			self.y = oldY;
+			console.log("Obstacle ahead")
+		}
+
+	};
 
 	self.right = function(){
 		if (self.direction === 'N'){
@@ -89,7 +134,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		if (self.direction === 'W'){
 			self.direction = 'N';
 		}
-	}
+	};
 
 	self.left = function(){
 		if (self.direction === 'N'){
@@ -104,10 +149,10 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		if (self.direction === 'E'){
 			self.direction = 'N';
 		}
-	}
+	};
 
 
 
 
 	return self;
-}
+};
