@@ -20,8 +20,8 @@ var grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],];
 var tileSize = 25;
 
-var mapHeight = grid[0].length * tileSize;
-var mapWidth = grid.length * tileSize;
+var mapWidth = grid[0].length * tileSize;
+var mapHeight = grid.length * tileSize;
 
 var Rover = function(x,y,direction){  // Does this need to have the parameter in the form of an array? If so, it would be the same, except the one parameter would be arr, and the parameter would be x = arr[0], y = arr[1], and direction = arr[2].
 
@@ -38,10 +38,27 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 	}
 
 	self.isCollision = function(){
-		var gridX = Math.floor(self.x/tileSize);
+		var gridX = Math.floor(self.x/tileSize);  // This converts the players x/y into grid tile x/y.
 		var gridY = Math.floor(self.y/tileSize);
 		return self.collGrid[gridY][gridX];  // returns truthy or falsy if the player is in the tile of the grid that a 1 is in.
 	};
+
+	self.mapWrap = function(){
+		// Wrap from one edge of grid to another going forward
+		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
+			self.x = self.x - mapWidth;
+		}
+		if (self.x < 0){
+			self.x = mapWidth;
+		}
+		if (self.y > mapHeight){
+			self.y = self.y - mapHeight
+		}
+		if (self.y < 0){
+			self.y = mapHeight;
+		}
+
+	}
 
 	self.forward = function(){
 		var oldX = self.x;
@@ -59,19 +76,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
           self.y--;
 		}
 
-	// Wrap from one edge of grid to another going forward
-		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
-			self.x = self.x - mapWidth;
-		}
-		if (self.x < 0){
-			self.x = mapWidth;
-		}
-		if (self.y > mapHeight){
-			self.y = self.y - mapHeight
-		}
-		if (self.y < 0){
-			self.y = mapHeight;
-		}
+	self.mapWrap();
 
 	// grid collision detection
 		if (self.isCollision()){
@@ -98,19 +103,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
           self.y++;
 		}
 
-	// Wrap from one edge of grid to another going backward
-		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
-			self.x = self.x - mapWidth;
-		}
-		if (self.x < 0){
-			self.x = mapWidth;
-		}
-		if (self.y > mapHeight){
-			self.y = self.y - mapHeight
-		}
-		if (self.y < 0){
-			self.y = mapHeight;
-		}
+	self.mapWrap();
 
 	// grid collision detection
 		if (self.isCollision()){
@@ -151,8 +144,10 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		}
 	};
 
-
-
-
 	return self;
 };
+
+var marsRover = Rover();  // I could put the parameters into here from an html form
+
+// If this was supposed to be displayed on a canvas, it would take a bit longer to set up keydown functions 
+// and would require a setInterval() function for framerate.
