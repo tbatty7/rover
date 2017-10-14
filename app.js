@@ -43,7 +43,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		return self.collGrid[gridY][gridX];  // returns truthy or falsy if the player is in the tile of the grid that a 1 is in.
 	};
 
-	self.collisionAvoidance = function(){
+	self.collisionAvoidance = function(oldX,oldY){
 		// grid collision detection
 		if (self.isCollision()){
 			self.x = oldX;
@@ -87,7 +87,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.mapWrap();
 
-	self.collisionAvoidance();
+	self.collisionAvoidance(oldX,oldY);
 	};
 
 	self.backward = function(){
@@ -109,7 +109,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.mapWrap();
 
-	self.collisionAvoidance();
+	self.collisionAvoidance(oldX,oldY);
 
 	};
 
