@@ -12,5 +12,22 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		self.direction = direction;
 	}
 
+	self.forward = function(){
+	       if (self.direction === ‘N’){
+		      self.x++;
+		}
+	       if (self.direction === ‘S’){
+	          self.x--;
+		}
+	       if (self.direction === ‘E’){
+	          self.y++;
+		}
+	       if (self.direction === ‘W’){
+	          self.y--;
+		}
+	}
+
+	
+
 	return self;
 }
