@@ -46,6 +46,37 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		}
 	}
 
+	self.right = function(){
+		if (self.direction === 'N'){
+			self.direction = 'E';
+		}
+		if (self.direction === 'E'){
+			self.direction = 'S';
+		}
+		if (self.direction === 'S'){
+			self.direction = 'W';
+		}
+		if (self.direction === 'W'){
+			self.direction = 'N';
+		}
+	}
+
+	self.left = function(){
+		if (self.direction === 'N'){
+			self.direction = 'W';
+		}
+		if (self.direction === 'W'){
+			self.direction = 'S';
+		}
+		if (self.direction === 'S'){
+			self.direction = 'E';
+		}
+		if (self.direction === 'E'){
+			self.direction = 'N';
+		}
+	}
+
+
 
 
 	return self;
