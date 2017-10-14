@@ -1,5 +1,6 @@
 
-
+var mapHeight = 500;
+var mapWidth = 500;
 
 
 var Rover = function(x,y,direction){  // Does this need to have the parameter in the form of an array? If so, it would be the same, except the one parameter would be arr, and the parameter would be x = arr[0], y = arr[1], and direction = arr[2].
@@ -29,6 +30,20 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
        if (self.direction === 'W'){
           self.y--;
 		}
+
+	// Wrap from one edge of grid to another going forward
+		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
+			self.x = self.x - mapWidth;
+		}
+		if (self.x < 0){
+			self.x = mapWidth;
+		}
+		if (self.y > mapHeight){
+			self.y = self.y - mapHeight
+		}
+		if (self.y < 0){
+			self.y = mapHeight;
+		}
 	}
 
 	self.backward = function(){
@@ -44,6 +59,21 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
        if (self.direction === 'W'){
           self.y++;
 		}
+
+	// Wrap from one edge of grid to another going backward
+		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
+			self.x = self.x - mapWidth;
+		}
+		if (self.x < 0){
+			self.x = mapWidth;
+		}
+		if (self.y > mapHeight){
+			self.y = self.y - mapHeight
+		}
+		if (self.y < 0){
+			self.y = mapHeight;
+		}
+
 	}
 
 	self.right = function(){
