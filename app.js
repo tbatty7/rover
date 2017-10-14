@@ -105,13 +105,6 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.mapWrap();
 
-	// grid collision detection
-		if (self.isCollision()){
-			self.x = oldX;
-			self.y = oldY;
-			console.log("Obstacle ahead")
-		}
-
 	};
 
 	self.right = function(){
