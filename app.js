@@ -31,16 +31,20 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		direction: 'N',
 		};
 
-	if(x){          // This tests if there are any parameters in the function, and if so, uses them to create the rover object.
+	if(x){         
 		self.x = x;
+	}
+	if(y){         
 		self.y = y;
+	}
+	if(direction){         
 		self.direction = direction;
 	}
 
 	self.isCollision = function(){
 		var gridX = Math.floor(self.x/tileSize);  // This converts the players x/y into grid tile x/y.
 		var gridY = Math.floor(self.y/tileSize);
-		return self.collGrid[gridY][gridX];  // returns truthy or falsy if the player is in the tile of the grid that a 1 is in.
+		return grid[gridY][gridX];  // returns truthy or falsy if the player is in the tile of the grid that a 1 is in.
 	};
 
 	self.collisionAvoidance = function(oldX,oldY){
@@ -49,6 +53,21 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 			self.x = oldX;
 			self.y = oldY;
 			console.log("Obstacle ahead")
+		}
+	}
+
+	self.directionDetector = function(n,s,e,w){
+       if (self.direction === 'N'){
+	      n;
+		}
+       if (self.direction === 'S'){
+          s;
+		}
+       if (self.direction === 'E'){
+          e;
+		}
+       if (self.direction === 'W'){
+          w;
 		}
 	}
 
@@ -72,75 +91,34 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 	self.forward = function(){
 		var oldX = self.x;
 		var oldY = self.y;
-       if (self.direction === 'N'){
-	      self.x++;
-		}
-       if (self.direction === 'S'){
-          self.x--;
-		}
-       if (self.direction === 'E'){
-          self.y++;
-		}
-       if (self.direction === 'W'){
-          self.y--;
-		}
 
-	self.mapWrap();
+		self.directionDetector(self.x++,self.x--,self.y++,self.y--);
 
-	self.collisionAvoidance(oldX,oldY);
+		self.mapWrap();
+
+		self.collisionAvoidance(oldX,oldY);
 	};
 
 	self.backward = function(){
 		var oldX = self.x;
 		var oldY = self.y;
 
-       if (self.direction === 'N'){
-	      self.x--;
-		}
-       if (self.direction === 'S'){
-          self.x++;
-		}
-       if (self.direction === 'E'){
-          self.y--;
-		}
-       if (self.direction === 'W'){
-          self.y++;
-		}
+		self.directionDetector(self.x--,self.x++,self.y--,self.y++);
 
-	self.mapWrap();
+		self.mapWrap();
 
-	self.collisionAvoidance(oldX,oldY);
+		self.collisionAvoidance(oldX,oldY);
 
 	};
 
 	self.right = function(){
-		if (self.direction === 'N'){
-			self.direction = 'E';
-		}
-		if (self.direction === 'E'){
-			self.direction = 'S';
-		}
-		if (self.direction === 'S'){
-			self.direction = 'W';
-		}
-		if (self.direction === 'W'){
-			self.direction = 'N';
-		}
+
+		self.directionDetector(self.direction = 'E', self.direction = 'W', self.direction = 'S', self.direction = 'N');
 	};
 
 	self.left = function(){
-		if (self.direction === 'N'){
-			self.direction = 'W';
-		}
-		if (self.direction === 'W'){
-			self.direction = 'S';
-		}
-		if (self.direction === 'S'){
-			self.direction = 'E';
-		}
-		if (self.direction === 'E'){
-			self.direction = 'N';
-		}
+
+		self.directionDetector(self.direction = 'W', self.direction = 'E', self.direction = 'N', self.direction = 'S');
 	};
 
 	return self;
@@ -149,4 +127,4 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 var marsRover = Rover();  // I could put the parameters into here from an html form
 
 // If this was supposed to be displayed on a canvas, it would take a bit longer to set up keydown functions 
-// and would require a setInterval() function for framerate.
+// and would require a setInterval() function for framerate and animation.
