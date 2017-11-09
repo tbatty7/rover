@@ -1,3 +1,9 @@
+
+// The grid is the map where the rover can travel.  It is an array of tiles or squares on which
+// the rover can travel.  Each cell has one of two values:
+// 				0 - you can travel on it
+// 				1 - there is an obstacle and the rover cannot enter it.
+
 var grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -18,6 +24,8 @@ var grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1],
            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],];
+
+// tileSize is the size of each square, or tile, in the grid.  It is set to 25 pixels.
 var tileSize = 25;
 
 var mapWidth = grid[0].length * tileSize;
@@ -27,17 +35,17 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	var self = {
 		x: 10,
-		x: 10,
+		y: 10,
 		direction: 'N',
 		};
 
-	if(x){         
+	if(x > 0 && x < 500){         
 		self.x = x;
 	}
-	if(y){         
+	if(y > 0 && x < 500){         
 		self.y = y;
 	}
-	if(direction){         
+	if((direction === 'N' || direction === 'S') || (direction === 'E' || direction === 'W')){         
 		self.direction = direction;
 	}
 
