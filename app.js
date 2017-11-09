@@ -81,16 +81,16 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.mapWrap = function(){
 		// Wrap from one edge of grid to another going forward
-		if (self.x > mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
+		if (self.x >= mapWidth){  // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
 			self.x = self.x - mapWidth;
 		}
-		if (self.x < 0){
+		if (self.x <= 0){
 			self.x = mapWidth;
 		}
-		if (self.y > mapHeight){
+		if (self.y >= mapHeight){
 			self.y = self.y - mapHeight
 		}
-		if (self.y < 0){
+		if (self.y <= 0){
 			self.y = mapHeight;
 		}
 
