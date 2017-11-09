@@ -121,12 +121,12 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.right = function(){
 
-		self.directionDetector(self.direction = 'E', self.direction = 'W', self.direction = 'S', self.direction = 'N');
+		self.direction = self.directionDetector('E', 'W', 'S', 'N');
 	};
 
 	self.left = function(){
 
-		self.directionDetector(self.direction = 'W', self.direction = 'E', self.direction = 'N', self.direction = 'S');
+		self.direction = self.directionDetector('W', 'E', 'N', 'S');
 	};
 
 	return self;
