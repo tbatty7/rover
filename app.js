@@ -64,7 +64,24 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		}
 	}
 
-	self.directionDetector = function(n,s,e,w){
+
+	self.move = function(n,s,e,w){
+       if (self.direction === n){
+	      self.y++;
+		}
+       if (self.direction === s){
+          self.y--;
+		}
+       if (self.direction === e){
+          self.x++;
+		}
+       if (self.direction === w){
+          self.x--;
+		}
+		
+	}
+
+	self.rotate = function(n,s,e,w){
        if (self.direction === 'N'){
 	      n;
 		}
@@ -100,7 +117,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		var oldX = self.x;
 		var oldY = self.y;
 
-		self.directionDetector(self.x++,self.x--,self.y++,self.y--);
+		self.move('N','S','E','W');
 
 		self.mapWrap();
 
@@ -111,7 +128,7 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 		var oldX = self.x;
 		var oldY = self.y;
 
-		self.directionDetector(self.x--,self.x++,self.y--,self.y++);
+		self.move('S','N','W','E');
 
 		self.mapWrap();
 
@@ -121,12 +138,12 @@ var Rover = function(x,y,direction){  // Does this need to have the parameter in
 
 	self.right = function(){
 
-		self.direction = self.directionDetector('E', 'W', 'S', 'N');
+		self.direction = self.rotate('E', 'W', 'S', 'N');
 	};
 
 	self.left = function(){
 
-		self.direction = self.directionDetector('W', 'E', 'N', 'S');
+		self.direction = self.rotate('W', 'E', 'N', 'S');
 	};
 
 	return self;
