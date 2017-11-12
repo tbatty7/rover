@@ -1,0 +1,26 @@
+{
+  "name": "rover",
+  "version": "1.0.0",
+  "description": "Coding kata to creat input for pretend Mars Rover",
+  "main": "app.js",
+  "scripts": {
+    "test": "Mocha || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tbatty7/rover.git"
+  },
+  "keywords": [
+    "rover"
+  ],
+  "author": "Tim Batty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tbatty7/rover/issues"
+  },
+  "homepage": "https://github.com/tbatty7/rover#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
+  }
+}

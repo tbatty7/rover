@@ -186,3 +186,4 @@ var marsRover = Rover();  // I could put the parameters into here from an html f
 // and would require a setInterval() function for framerate and animation.
 
 
+module.exports = Rover();
