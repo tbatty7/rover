@@ -30,6 +30,11 @@ var grid = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 // (Graphic implementation remains future)
 var tileSize = 25;
 
+// mapWidth and mapHeight are values of the number of pixels wide and high the map is.
+// The calculation below caculates the height and width using the grid array.
+// This program is expected to run on an HTML canvas that is 500px by 500px.
+// if the tileSize was changed to 32px, as is expected when using maps created by the 
+// Tiled program, this map would be 640px by 640px
 var mapWidth = grid[0].length * tileSize;
 var mapHeight = grid.length * tileSize;
 
@@ -71,7 +76,6 @@ var Rover = function(x,y,direction){
 // previous cell, which the caller supplies as formal parameters, and will output an error message;
 // If legal, no action is taken by collisionAvoidance.
 	self.collisionAvoidance = function(oldX,oldY){
-		// grid collision detection
 		if (self.isCollision()){
 			self.x = oldX;
 			self.y = oldY;
@@ -104,16 +108,16 @@ var Rover = function(x,y,direction){
 // rotating right, with rotating left being the opposite directions.
 	self.rotate = function(e,w,s,n){
        if (self.direction === 'N'){
-	      e;
+	      return e;
 		}
        if (self.direction === 'S'){
-          w;
+          return w;
 		}
        if (self.direction === 'E'){
-          s;
+          return s;
 		}
        if (self.direction === 'W'){
-          n;
+          return n;
 		}
 	};
 
@@ -123,15 +127,13 @@ var Rover = function(x,y,direction){
 // This is assuming the coordinates of the map start with 0 on the left and 0 on the bottom
 	self.mapWrap = function(){
 		if (self.x >= mapWidth){  
-			self.x = self.x - mapWidth;
-		}
-		if (self.x <= 0){
+			self.x = 0;
+		} else if (self.x <= 0){
 			self.x = mapWidth;
 		}
 		if (self.y >= mapHeight){
-			self.y = self.y - mapHeight
-		}
-		if (self.y <= 0){
+			self.y = 0;
+		} else if (self.y <= 0){
 			self.y = mapHeight;
 		}
 	};
@@ -180,7 +182,7 @@ var Rover = function(x,y,direction){
 	return self;
 };
 
-var marsRover = Rover();  // I could put the parameters into here from an html form
+Rover();  // I could put the parameters into here from an html form
 
 // If this was supposed to be displayed on a canvas, it would take a bit longer to set up keydown functions 
 // and would require a setInterval() function for framerate and animation.
